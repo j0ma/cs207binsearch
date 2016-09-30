@@ -55,6 +55,21 @@ def binary_search(da_array: list, needle, left:int=0, right:int=-1) -> int:
     2
     >>> binary_search(input, 5, 2, 2) # rangemin=rangemax; incorrect position
     -1
+
+    NOTE: In the interest of speed, the code does not check 
+    that ALL values in the input array are not nan, but simply 
+    tests `needle` and the midpoint element. Therefore, there are 
+    cases where a nan will not break the code.
+
+    >>> binary_search([1,2, 3, np.nan], 3) # this doesn't break
+    2
+
+    >>> from pytest import raises
+    >>> binary_search([1,2, np.nan, 3], 3)
+    Traceback (most recent call last):
+    ...
+    AssertionError: Error: elements of array should never be NaN
+
     """
 
     # import library for handling np.nan
@@ -95,7 +110,3 @@ def binary_search(da_array: list, needle, left:int=0, right:int=-1) -> int:
         else:
             index = midpoint
             return index
-
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod()
